@@ -192,8 +192,7 @@ def intersection_check(thresh_is):
 #     return no_defects, img_to_check
 
 
-# Main pipeline. Module #1
-# How to strat this from get_image_from_video in parallel
+# Start is here.
 
 def image_check(myQ, sampling):
     print("image check started")
