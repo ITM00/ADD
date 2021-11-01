@@ -18,3 +18,5 @@ multiprocessing is needed for run second algorith (Find_defect.py) and keep maki
 
 Folder_control.py is used for creation and deletion folders for images saving daily based by crontab. (Tested, works)
 It creates folder with current date as a name in format YYYY-MM-DD and delete folders that older then 6 work days.
+
+Find_defect.py is under maintenance.
