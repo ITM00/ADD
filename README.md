@@ -15,4 +15,4 @@ And more it calculates differnace not for whole frame but just for small part of
 farme_cut_up & farme_cut_low determine area of frame for differance culculation.
 
 multiprocessing is needed for run second algorith (find_defect.py) and keep making shots of CBs at the same time.
-folder_control is used to create and delete folder for saves images.
+folder_control.py is used to create and delete folder for saves images.
