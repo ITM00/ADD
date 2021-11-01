@@ -14,5 +14,5 @@ To decrease computantional cost differnt between template and frame calculates o
 And more it calculates differnace not for whole frame but just for small part of it as I know where the motion appers each time.
 farme_cut_up & farme_cut_low determine area of frame for differance culculation.
 
-multiprocessing is needed for run second algorith (find_defect.py) and keep making shots of CBs at the same time.
-folder_control.py is used for creation and deletion folders for images saving daily based by crontab.
+multiprocessing is needed for run second algorith (Find_defect.py) and keep making shots of CBs at the same time.
+Folder_control.py is used for creation and deletion folders for images saving daily based by crontab.
