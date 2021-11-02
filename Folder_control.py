@@ -26,8 +26,6 @@ def folder_control():
             if seconds > os.stat(path+dirs).st_ctime:
                 shutil.rmtree(path+dirs) 
                 
-       # shutil.rmtree(path+dirs) for dirs in dir_list if seconds > os.stat(path+dirs).st_ctime     to check 
-    
     ####  Create a folder with today name (YYYY-MM-DD), except weekends
     try:
         if str(date.today()) not in os.listdir(path) and my_date < 5:
