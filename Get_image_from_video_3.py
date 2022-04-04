@@ -7,6 +7,7 @@ from picamera.array import PiRGBArray
 from picamera import PiCamera
 import traceback
 import os
+
 # import find_defect
 # from multiprocessing import Process, Queue
 
@@ -17,9 +18,6 @@ def get_date():
     return line
     
 def image_from_video(command, sampling):
-#     cv2.namedWindow("frame")
-#     cv2.moveWindow("frame", 200,50)
-#     print("Run at ", time.strftime("%H:%M", time.localtime()))
 
     w,h  = 1648, 1232    # camera resolution.  Ratio 1.77
     ww, wh = 650, 296    # for window size adjustment and image resize
@@ -32,7 +30,7 @@ def image_from_video(command, sampling):
     rawCapture = PiRGBArray(camera, size=(w, h))
 
     thresh_up = 24000000   # Diff between empty line and CB. Lower thresh less diff counts like a motion
-    thresh_low = 3000000  # Diff between empty line and empty line
+    thresh_low = 6000000  # Diff between empty line and empty line
     frame_cut_up = 300     # Cut frame for thresh calculating to save up some time
     frame_cut_low = 500
     prefix =   "/home/pi/AuDD/5_Photos/" + str(date.today()) + '/'  # For image name
@@ -47,6 +45,7 @@ def image_from_video(command, sampling):
     
     if command == "start":
         template = cv2.imread('/home/pi/AuDD/3_Templates/1.jpg')
+        #template = cv2.imread('/home/pi/AuDD/3_Templates/Empty_line1.jpg')
         template = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
         template = cv2.GaussianBlur(template, (3, 3), 0)
         t_cut = template[frame_cut_up:frame_cut_low, :]
@@ -64,7 +63,6 @@ def image_from_video(command, sampling):
             try:
                 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
                     if datetime.datetime.now().time() < datetime.time(16, 45, 0):
-                        #print("second time range passed")
                         img = frame.array
                         img = img[420:1170,:]
                         img_res = cv2.resize(img, (ww, wh), interpolation = cv2.INTER_CUBIC)
@@ -79,18 +77,22 @@ def image_from_video(command, sampling):
                             frameDelta = cv2.absdiff(t_thresh, n_thresh)
                             summ = np.sum(frameDelta)
                             n = 0
-            #                 print(summ)
+#                             print(summ)
                             if summ > thresh_up and shot == 0:
-                                n0 += 1   
+                                n0 += 1
+                                
                                 if n0 == s:  # n value have to be ajusted to stream video or use sleep
+                                    time.sleep(3.5)
                                     timer = time.strftime("%H_%M", time.localtime())
                                     name = prefix +str(timer)+".jpg"
                                     cv2.imwrite(name, img)
+                            
         #                             img_to_check = cv2.imread("Block on line with DFx2 crop.jpg")  # For test. Change to img
         #                             q.put(img_to_check)
         #                             if not p.is_alive():
         #                                 p = Process(target=find_defect.image_check, args=(q, sampling))
         #                                 p.start()
+
                                     shot = 1
                             if summ < thresh_low and shot == 1:
                                 shot = 0
@@ -102,6 +104,7 @@ def image_from_video(command, sampling):
                         break
             except:
                 rawCapture.truncate(0)
+                camera.close()
                 time.sleep(2)
                 finish, error = False, True
                 with open('/home/pi/AuDD/log.txt', 'a') as f:
@@ -109,3 +112,6 @@ def image_from_video(command, sampling):
                     f.write(traceback.format_exc())
                 return finish, error  
                 break
+                
+# if __name__ == "__main__":
+#image_from_video("start", "sampling")
