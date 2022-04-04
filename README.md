@@ -22,4 +22,7 @@ Multiprocessing is needed for run second algorith (Find_defect.py) and keep maki
 Folder_control.py is used for creation and deletion folders for images saving daily based by crontab. (Tested, works)
 It creates folder with current date as a name in format YYYY-MM-DD and delete folders that older then 6 work days.
 
-Find_defect.py is under maintenance.
+Find_defect.py is based on find differance between template image and actual. Then found points of diference go through evaluation 
+of dimention and position. If it pass conditions, differance counts as OK, if not - NG. But this aproach doesn't work in my case.
+Part's surface produces too differnt reflections wich count as differance and lead to wrong evaluation. This coudn't be handled 
+without changing final machining polishing of the part.
