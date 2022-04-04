@@ -22,13 +22,12 @@ current = datetime.datetime.now().time()
 
 # Check if folder creation needed
 if datetime.date.today().weekday() < 5 and current_date not in folders_list:
+    
     Folder_control.folder_control()
 
 # Check if it's proper time for Get_image_from_vide to work
 # And save to log.txt when finished.
 while datetime.date.today().weekday() < 5 and start <= current <= end:
-    #print("strat")
-
     try:
         finish, error = Get_image_from_video_3.image_from_video("start", "sampling")
     except:
@@ -37,6 +36,8 @@ while datetime.date.today().weekday() < 5 and start <= current <= end:
         f.write(get_date() + " ERROR making photo (Start_control): \n")
         f.write(traceback.format_exc())
         f.close()
+        time.sleep(2)
+        continue
         
     if error:
         time.sleep(2)
@@ -49,8 +50,6 @@ while datetime.date.today().weekday() < 5 and start <= current <= end:
         f.write(get_date() + " Get_image retirned finish.\n")
         f.close()
         break
-    
-
      
 photos_quantity = len(os.listdir(path + str(datetime.date.today())))
 os.chmod('/home/pi/AuDD/log.txt', 0o777)
