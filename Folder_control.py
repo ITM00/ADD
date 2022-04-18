@@ -16,9 +16,9 @@ def folder_control():
         days = 6
     else:
         days = 3
-    seconds = time.time() - (days * 24 * 60 * 60)  # calculate time that was days ago
+    seconds = time.time() - (days * 24 * 60 * 60)  # calculate time that was "days" ago
     
-    ### remove all dir older then 2 work week days. Except Semples
+    ### Remove all dir older then 2 work week days. Except Samples
     dir_list = os.listdir(path)
     os.chmod('/home/pi/AuDD/log.txt', 0o777)
     with open('/home/pi/AuDD/log.txt', 'a') as f:
@@ -49,6 +49,3 @@ def folder_control():
             f.write(get_date() + " ERROR during folder creation: \n")
             f.write(traceback.format_exc())
             pass
-        
-# if __name__ == "__main__":
-#folder_control()
