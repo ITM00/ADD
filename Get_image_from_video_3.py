@@ -69,7 +69,7 @@ def image_from_video(command, sampling):
                         rawCapture.truncate(0)
                         n += 1
                         
-                        if n % nn == 0:  # check each n-th frame
+                        if n % nn == 0:  # check each nn-th frame
                             next_frame = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
                             next_frame = cv2.GaussianBlur(next_frame, (3, 3), 0)
                             n_cut = next_frame[frame_cut_up:frame_cut_low, :]
@@ -81,7 +81,7 @@ def image_from_video(command, sampling):
                             if summ > thresh_up and shot == 0:
                                 n0 += 1
                                 
-                                if n0 == s:  # n value have to be ajusted to stream video or use sleep
+                                if n0 == s:
                                     time.sleep(3.5)
                                     timer = time.strftime("%H_%M", time.localtime())
                                     name = prefix +str(timer)+".jpg"
@@ -112,6 +112,3 @@ def image_from_video(command, sampling):
                     f.write(traceback.format_exc())
                 return finish, error  
                 break
-                
-# if __name__ == "__main__":
-#image_from_video("start", "sampling")
