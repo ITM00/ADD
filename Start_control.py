@@ -25,7 +25,7 @@ if datetime.date.today().weekday() < 5 and current_date not in folders_list:
     
     Folder_control.folder_control()
 
-# Check if it's proper time for Get_image_from_vide to work
+# Check if it's proper time for Get_image_from_video to work
 # And save to log.txt when finished.
 while datetime.date.today().weekday() < 5 and start <= current <= end:
     try:
@@ -47,7 +47,7 @@ while datetime.date.today().weekday() < 5 and start <= current <= end:
     if finish:
         os.chmod('/home/pi/AuDD/log.txt', 0o777)
         f = open('/home/pi/AuDD/log.txt', 'a')
-        f.write(get_date() + " Get_image retirned finish.\n")
+        f.write(get_date() + " Get_image returned finish.\n")
         f.close()
         break
      
